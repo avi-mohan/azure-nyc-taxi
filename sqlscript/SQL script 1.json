@@ -2,7 +2,7 @@
 	"name": "SQL script 1",
 	"properties": {
 		"content": {
-			"query": "-- This is auto-generated code\n\nCREATE EXTERNAL DATA SOURCE nyc_taxi_data_raw\nWITH(\n    LOCATION = 'abfss://nyc-taxi-data@dludemy.dfs.core.windows.net/raw'\n)\n\nselect * \nfrom OPENROWSET(\n    BULK 'raw/taxi_zone.csv',\n    DATA_SOURCE = 'nyc-taxi-data',\n    FORMAT = 'CSV',\n    PARSER_VERSION = '2.0',\n    FIRSTROW = 2,\n    FIELDTERMINATOR = ',',\n    ROWTERMINATOR = '\\n'\n)\n\nWITH (\n    location_id SMALLINT 1,\n    borough VARCHAR(15) 2,\n    zone VARCHAR(50) 3,\n    service_zone VARCHAR(15) 4\n) as [result]",
+			"query": "-- This is auto-generated code\n\nCREATE EXTERNAL DATA SOURCE nyc_taxi_data_raw\nWITH(\n    LOCATION = 'abfss://nyc-taxi-data@dludemy.dfs.core.windows.net/raw'\n)\n\nselect * \nfrom OPENROWSET(\n    BULK 'taxi_zone.csv',\n    DATA_SOURCE = 'nyc_taxi_data_raw',\n    FORMAT = 'CSV',\n    PARSER_VERSION = '2.0',\n    FIRSTROW = 2,\n    FIELDTERMINATOR = ',',\n    ROWTERMINATOR = '\\n'\n)\n\nWITH (\n    location_id SMALLINT 1,\n    borough VARCHAR(15) 2,\n    zone VARCHAR(50) 3,\n    service_zone VARCHAR(15) 4\n) as [result]\n\n\nDROP EXTERNAL DATA SOURCE nyc_taxi_data",
 			"metadata": {
 				"language": "sql"
 			},
