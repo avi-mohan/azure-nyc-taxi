@@ -1,0 +1,20 @@
+{
+	"name": "7_explore_trip_data_green",
+	"properties": {
+		"folder": {
+			"name": "nyc_taxi/discovery"
+		},
+		"content": {
+			"query": "USE nyc_taxi_discovery\n\n\n-- This is auto-generated code\nSELECT\n    TOP 100 *\nFROM\n    OPENROWSET(\n        BULK 'trip_data_green_csv/year=2020/month=01/green_tripdata_2020-01.csv',\n        DATA_SOURCE = 'nyc_taxi_data_raw',\n        FORMAT = 'CSV',\n        PARSER_VERSION = '2.0',\n        HEADER_ROW = TRUE\n    ) AS [result]\n\n--Select data from a folder\nSELECT\n    TOP 100 *\nFROM\n    OPENROWSET(\n        BULK 'trip_data_green_csv/year=2020/month=01',\n        DATA_SOURCE = 'nyc_taxi_data_raw',\n        FORMAT = 'CSV',\n        PARSER_VERSION = '2.0',\n        HEADER_ROW = TRUE\n    ) AS [result]\n\n--Select data from subfolders\nSELECT\n    TOP 100 *\nFROM\n    OPENROWSET(\n        BULK 'trip_data_green_csv/year=2020/month=01/**',\n        DATA_SOURCE = 'nyc_taxi_data_raw',\n        FORMAT = 'CSV',\n        PARSER_VERSION = '2.0',\n        HEADER_ROW = TRUE\n    ) AS [result]\n\n\n--Get data from more than one file\nSELECT\n    TOP 100 *\nFROM\n    OPENROWSET(\n        BULK ('trip_data_green_csv/year=2020/month=01/*.csv',\n        'trip_data_green_csv/year=2020/month=02/*.csv'),\n        DATA_SOURCE = 'nyc_taxi_data_raw',\n        FORMAT = 'CSV',\n        PARSER_VERSION = '2.0',\n        HEADER_ROW = TRUE\n    ) AS [result]\n\n--Use more than 1 wildcard character\nSELECT\n    TOP 100 *\nFROM\n    OPENROWSET(\n        BULK 'trip_data_green_csv/year=*/month=*/*.csv',\n        DATA_SOURCE = 'nyc_taxi_data_raw',\n        FORMAT = 'CSV',\n        PARSER_VERSION = '2.0',\n        HEADER_ROW = TRUE\n    ) AS [result]\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "nyc_taxi_discovery",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
