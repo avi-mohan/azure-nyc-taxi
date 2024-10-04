@@ -1,0 +1,20 @@
+{
+	"name": "9_explore_trip_data_green_delta",
+	"properties": {
+		"folder": {
+			"name": "nyc_taxi/discovery"
+		},
+		"content": {
+			"query": "USE nyc_taxi_discovery\n\nSELECT TOP 100\n    *\n    FROM OPENROWSET(\n        BULK 'trip_data_green_delta/',\n        DATA_SOURCE = 'nyc_taxi_data_raw',\n        FORMAT = 'DELTA' \n    ) AS trip_data\n\n\n--Query delta subfolders\nSELECT TOP 100\n    *\n    FROM OPENROWSET(\n        BULK 'trip_data_green_delta/',\n        DATA_SOURCE = 'nyc_taxi_data_raw',\n        FORMAT = 'DELTA' \n    ) \n    WITH (\n        tip_amount FLOAT,\n        trip_type INT,\n        year VARCHAR(4),\n        month VARCHAR(2)\n    ) AS trip_data\n\nSELECT COUNT(DISTINCT payment_type)\n    FROM OPENROWSET(\n        BULK 'trip_data_green_delta/',\n        DATA_SOURCE = 'nyc_taxi_data_raw',\n        FORMAT = 'DELTA' \n    ) AS trip_data\n\n    WHERE year = '2020' AND month = '01'\n    ",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "nyc_taxi_discovery",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
