@@ -5,7 +5,7 @@
 			"name": "nyc_taxi/discovery"
 		},
 		"content": {
-			"query": "SELECT\n    TOP 100 *\nFROM\n    OPENROWSET(\n        BULK 'trip_type.tsv',\n        DATA_SOURCE = 'nyc_taxi_data_raw',\n        FORMAT = 'CSV',\n        PARSER_VERSION = '2.0',\n        HEADER_ROW = TRUE,\n        FIELDTERMINATOR = '\\t'\n    ) AS trip_type;\n\n",
+			"query": "SELECT\n    TOP 100 *\nFROM\n    OPENROWSET(\n        BULK 'trip_type.tsv',\n        DATA_SOURCE = 'nyc_taxi_data_raw',\n        FORMAT = 'CSV',\n        PARSER_VERSION = '2.0',\n        HEADER_ROW = TRUE,\n        FIELDTERMINATOR = '\\t'\n    ) AS trip_type;\n\n( \n        trip_type TINYINT, \n        trip_type_desc VARCHAR(50)\n    )",
 			"metadata": {
 				"language": "sql"
 			},
