@@ -5,7 +5,7 @@
 			"name": "nyc_taxi/ldw"
 		},
 		"content": {
-			"query": "USE nyc_taxi_ldw\n\nCREATE EXTERNAL DATA SOURCE nyc_data_src\nWITH (\n    LOCATION = 'https://dludemy.dfs.core.windows.net/nyc-taxi-data'\n);",
+			"query": "USE nyc_taxi_ldw\n\n\nIF NOT EXISTS (SELECT * FROM sys.external_data_sources WHERE name = 'nyc_taxi_src')\nCREATE EXTERNAL DATA SOURCE nyc_data_src\nWITH (\n    LOCATION = 'https://dludemy.dfs.core.windows.net/nyc-taxi-data'\n);",
 			"metadata": {
 				"language": "sql"
 			},
